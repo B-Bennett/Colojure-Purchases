@@ -6,7 +6,7 @@
           [hiccup.core :as h])
 (:gen-class))
 (defn read-purchases []
-(println "Type a category")
+ #_ (println "Type a category")
 (let [input (read-line)
       purchses (slurp "purchases.csv")
       purchses (str/split-lines purchses)
@@ -43,7 +43,9 @@
    :headers {"Content-type" "text/html"}
    :body    (h/html [:html
                      [:body
-                     (purchase-html)]])})
-
+                      [:h3 "Type a Category"
+                       [:br]
+                       []
+                     (purchase-html)]]])})
 (defn -main [& args]
-  (j/run-jetty #'handler {:port 3000 :join? false}))
+  (j/run-jetty #'handler {:port 4000 :join? false}))

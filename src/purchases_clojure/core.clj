@@ -1,6 +1,7 @@
 (ns purchases-clojure.core
   (:require [clojure.string :as str]
-            [clojure.walk :as walk])
+            [clojure.walk :as walk]
+            [clojure.pprint :as pprint])
   (:gen-class))
 
 (defn -main [& args]
@@ -23,5 +24,5 @@
         purchses (filter (fn [line]
                            (= (:category line) input))
                          purchses)]
-    (spit "filtered_purchases.edn"
-          (pr-str purchses))))
+    (spit (format "filtered_%s.edn" input)
+          (with-out-str (pprint/pprint purchses)))))

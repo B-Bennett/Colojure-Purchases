@@ -45,7 +45,13 @@
                      [:body
                       [:h3 "Type a Category"
                        [:br]
-                       []
+                       [:div
+                        [:input.form-control
+                         {:type "text"
+                          :placeholder "Type here"}]]
+                       [:br]
+                       [:button]
+                       [:br]
                      (purchase-html)]]])})
 (defn -main [& args]
   (j/run-jetty #'handler {:port 4000 :join? false}))

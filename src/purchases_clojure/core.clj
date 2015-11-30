@@ -7,7 +7,7 @@
 (:gen-class))
 (defn read-purchases []
  #_ (println "Type a category")
-(let [input (read-line)
+(let [;input (read-line)
       purchses (slurp "purchases.csv")
       purchses (str/split-lines purchses)
       purchses (map (fn [line]
@@ -22,9 +22,10 @@
                       (apply hash-map line))
                     purchses)
       purchses (walk/keywordize-keys purchses)
-      purchses (filter (fn [line]
+      #_purchses #_(filter (fn [line]
                          (= (:category line) input))
-                       purchses)]
+                       purchses)
+      ]
   #_(spit (format "filtered_%s.edn" input)
           (with-out-str (pprint/pprint purchses)))
   purchses))
@@ -38,20 +39,12 @@
                (:date line))])
        purchases)))
 
+
 (defn handler [request]
   {:status  200
    :headers {"Content-type" "text/html"}
    :body    (h/html [:html
                      [:body
-                      [:h3 "Type a Category"
-                       [:br]
-                       [:div
-                        [:input.form-control
-                         {:type "text"
-                          :placeholder "Type here"}]]
-                       [:br]
-                       [:button]
-                       [:br]
-                     (purchase-html)]]])})
+                     (purchase-html)]])})
 (defn -main [& args]
-  (j/run-jetty #'handler {:port 4000 :join? false}))
+  (j/run-jetty #'handler {:port 3000 :join? false}))
